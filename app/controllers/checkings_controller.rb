@@ -1,0 +1,3 @@
+class CheckingsController < ApplicationController
+    
+end
