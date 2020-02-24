@@ -4,4 +4,11 @@ class Checking < ApplicationRecord
   # def transactions
   #   byebug
   # end
+
+  def checking_signup_deposit(user,checking)
+      @user = user
+      @checking = checking
+      @checking.balance += 5000
+      save!
+  end
 end

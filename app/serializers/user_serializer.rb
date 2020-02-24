@@ -5,20 +5,27 @@ class UserSerializer < ActiveModel::Serializer
   # has_many :transactions, through: :checking
   # has_many :transactions, through: :saving
 
+
   def checking
+    # If current user does have a checking account opened.
+    if self.object.checking
     {
       balance: self.object.checking.balance,
       acc_num: self.object.checking.acc_num,
       transactions: self.object.checking.transactions
     }
+    end
   end
   
   def saving
-    {
-      balance: self.object.saving.balance,
-      acc_num: self.object.saving.acc_num,
-      transactions: self.object.saving.transactions
-    }
+    # If current user does have a saving account opened.
+     if self.object.saving
+        {
+          balance: self.object.saving.balance,
+          acc_num: self.object.saving.acc_num,
+          transactions: self.object.saving.transactions
+        }
+    end
   end
 
 end
