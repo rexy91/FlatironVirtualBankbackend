@@ -4,6 +4,7 @@ class CreateSavings < ActiveRecord::Migration[6.0]
       t.belongs_to :user, null: true, foreign_key: true
       t.float :balance, default: 0
       t.integer :acc_num
+      t.boolean :status, default: true 
 
       t.timestamps
     end

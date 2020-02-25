@@ -1,7 +1,7 @@
-# User.destroy_all
-# Checking.destroy_all
-# Saving.destroy_all
-# Transaction.destroy_all
+User.destroy_all
+Checking.destroy_all
+Saving.destroy_all
+Transaction.destroy_all
 
 # puts 'seeding'
 # user1 = User.create(username:'rex', password:'rexye')
@@ -20,49 +20,51 @@
 # Transaction.create(amount:150, trans_type:'debit', accountable_id:saving1.id, accountable_type:'Saving')
 # Transaction.create(amount:150, trans_type:'debit', accountable_id:saving1.id, accountable_type:'Saving')
 # Transaction.create(amount:150, trans_type:'debit', accountable_id:saving1.id, accountable_type:'Saving')
+
 puts 'seeded'
-def randomAmount
-    rand 100..200 
-end
 
-restaurants = [
-"Gotham Bar and Grill",
-"Gramercy Tavern",
-"Gray's Papaya",
-"La Grenouille",
-"Guss' Pickles",
-"H&H Bagels",
-"The Halal Guys",
-"Hallo Berlin",
-"IDT Megabite Cafe",
-"J.G. Melon",
-"Jean Georges",
-"Joe Allen",
-"Joe's Shanghai",
-"Julius",
-"Katz's Delicatessen",
-"Keens Steakhouse",
-"Kiev Restaurant",
-"King's Carriage House",
-"Kossar's Bialys",
-"Lindy's",
-"Lombardi's Pizza",
-"Lusardi's",
-"Magnolia Bakery"
-]
+# def randomAmount
+#     rand 100..200 
+# end
 
-descriptions = [
-    "ATM withdrwal, code #{10.times.map{rand(5)}.join}",
-    "ATM deposit, code #{10.times.map{rand(5)}.join}",
-    "#{['Lunch', 'Diner', "Breakfast", "Brunch"].sample} at #{restaurants.sample} restaurant."
-]
+# restaurants = [
+# "Gotham Bar and Grill",
+# "Gramercy Tavern",
+# "Gray's Papaya",
+# "La Grenouille",
+# "Guss' Pickles",
+# "H&H Bagels",
+# "The Halal Guys",
+# "Hallo Berlin",
+# "IDT Megabite Cafe",
+# "J.G. Melon",
+# "Jean Georges",
+# "Joe Allen",
+# "Joe's Shanghai",
+# "Julius",
+# "Katz's Delicatessen",
+# "Keens Steakhouse",
+# "Kiev Restaurant",
+# "King's Carriage House",
+# "Kossar's Bialys",
+# "Lindy's",
+# "Lombardi's Pizza",
+# "Lusardi's",
+# "Magnolia Bakery"
+# ]
+
+# descriptions = [
+#     "ATM withdrwal, code #{10.times.map{rand(5)}.join}",
+#     "ATM deposit, code #{10.times.map{rand(5)}.join}",
+#     "#{['Lunch', 'Diner', "Breakfast", "Brunch"].sample} at #{restaurants.sample} restaurant."
+# ]
 
 
-30.times do 
-    Transaction.create(amount: randomAmount(),
-         trans_type:['debit','credit'].sample, 
-         accountable_id:1, 
-         accountable_type:'Checking',
-         description:descriptions.sample)
-end
+# 30.times do 
+#     Transaction.create(amount: randomAmount(),
+#          trans_type:['debit','credit'].sample, 
+#          accountable_id:1, 
+#          accountable_type:'Checking',
+#          description:descriptions.sample)
+# end
 

@@ -4,6 +4,7 @@ class CreateCheckings < ActiveRecord::Migration[6.0]
       t.belongs_to :user, null: true, foreign_key: true
       t.integer :acc_num
       t.float :balance, default: 0 
+      t.boolean :statue, default: true 
 
       t.timestamps
     end

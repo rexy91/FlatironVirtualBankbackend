@@ -11,6 +11,7 @@ class UserSerializer < ActiveModel::Serializer
     if self.object.checking
     {
       # anyKey: 'kkkk', this will also get rendered out.
+      status: self.object.checking.status,
       id: self.object.checking.id,
       balance: self.object.checking.balance,
       acc_num: self.object.checking.acc_num,
@@ -24,6 +25,7 @@ class UserSerializer < ActiveModel::Serializer
     # If current user does have a saving account opened.
      if self.object.saving
         {
+          status: self.object.saving.status,
           id: self.object.saving.id,
           balance: self.object.saving.balance,
           acc_num: self.object.saving.acc_num,
