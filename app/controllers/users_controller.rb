@@ -51,9 +51,8 @@ class UsersController < ApplicationController
     end
 
     private
-
     def new_user_params
         params.permit(:username, :password, :email, :first_name, :last_name)
     end
-
 end
+
