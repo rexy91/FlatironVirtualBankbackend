@@ -7,8 +7,14 @@ class Checking < ApplicationRecord
 
   def checking_signup_deposit(user,checking)
       @user = user
-      @checking = checking
-      @checking.balance += 5000
+      self.balance += 5000
       save!
   end
+
+  def deposit(amount)
+      self.balance += amount.to_f
+      save!
+  end 
+
+
 end
