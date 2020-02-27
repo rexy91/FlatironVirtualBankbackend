@@ -16,5 +16,8 @@ class Checking < ApplicationRecord
       save!
   end 
 
-
+  def withdrawal(amount)
+      self.balance -= amount.to_f
+      save!
+  end
 end

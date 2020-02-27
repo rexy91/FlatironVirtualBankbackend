@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :transactions
 
   patch '/checkings/deposit/:id', to: 'checkings#deposit'
+  patch '/checkings/withdrawal/:id', to: 'checkings#withdrawal'
   resources :checkings
   resources :users
 
