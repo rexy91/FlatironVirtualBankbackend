@@ -1,15 +1,15 @@
 Rails.application.routes.draw do
-  resources :savings
+
   post '/login', to: 'users#login'
   post '/users', to: 'users#create'
+  post '/users/:id/new_account', to: 'users#create_acc_for_existingUser'
   get '/persist', to: 'users#persist'
-
-  resources :transactions
+  resources :users
 
   patch '/checkings/deposit/:id', to: 'checkings#deposit'
   patch '/checkings/withdrawal/:id', to: 'checkings#withdrawal'
   resources :checkings
-  resources :users
+  resources :savings
+  resources :transactions
 
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

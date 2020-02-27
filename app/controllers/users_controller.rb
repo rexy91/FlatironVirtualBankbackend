@@ -47,6 +47,20 @@ class UsersController < ApplicationController
         end
     end
 
+    def create_acc_for_existingUser
+        @user = User.find_by(id: params[:userId])
+        if params[:accType] == 'checking'
+          @checking = Checking.create(user_id:@user.id, acc_num:9.times.map{rand(7)}.join)
+          @checking.checking_signup_deposit(@user, @checking)
+          render json: {user: UserSerializer.new(@user), signup_type: 'Checking'}
+        elsif params[:accType] == 'saving'
+          @saving = Saving.create(user_id:@user.id, acc_num:9.times.map{rand(7)}.join)
+          @saving.saving_signup_deposit(@user, @saving)
+          # Keep json object consistent 
+          render json: {user: UserSerializer.new(@user), signup_type: 'Saving'}
+        end
+    end
+
     def persist
       wristband = encode_token({user_id: @user.id})
       render json: {user: UserSerializer.new(@user), token: wristband}
