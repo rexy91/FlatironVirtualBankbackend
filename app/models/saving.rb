@@ -5,7 +5,7 @@ class Saving < ApplicationRecord
   def saving_signup_deposit(user,checking)
     @user = user
     @saving = checking
-    @saving.balance += 5000
+    self.balance += 5000
     save!
 end
 

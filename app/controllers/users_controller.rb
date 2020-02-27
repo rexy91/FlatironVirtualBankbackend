@@ -35,10 +35,10 @@ class UsersController < ApplicationController
 
               render json: {user: UserSerializer.new(@user), token: wristband, signup_type: 'Checking'}
               
-               elsif params[:acc_type] == 'saving'
+          elsif params[:acc_type] == 'saving'
               # Creates saving for user, assigned acc num.
-              Saving.create(user_id:@user.id, acc_num:9.times.map{rand(7)}.join)
-              @saving.checking_signup_deposit(@user, @checking)
+              @saving = Saving.create(user_id:@user.id, acc_num:9.times.map{rand(7)}.join)
+              @saving.saving_signup_deposit(@user, @saving)
               wristband = encode_token({user_id: @user.id})
               render json: {user: UserSerializer.new(@user), token: wristband, signup_type: 'Saving'}
                end
