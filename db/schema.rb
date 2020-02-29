@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_25_184209) do
+ActiveRecord::Schema.define(version: 2020_02_29_030121) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 2020_02_25_184209) do
     t.bigint "accountable_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "date"
     t.index ["accountable_type", "accountable_id"], name: "index_transactions_on_accountable_type_and_accountable_id"
   end
 
