@@ -23,6 +23,14 @@ class UsersController < ApplicationController
         end
     end
 
+    def updateInfo
+       
+      @user = User.find_by(id:params[:id])
+      @user.update(update_params)
+      render json:@user
+      
+    end
+
     def create
        @user = User.create(new_user_params)
        if @user.valid?
@@ -70,5 +78,11 @@ class UsersController < ApplicationController
     def new_user_params
         params.permit(:username, :password, :email, :first_name, :last_name)
     end
+
+    def update_params
+        # frontEnd names Needs to match backend if want to use strongparams.
+        params.permit(:first_name, :last_name, :email, :billing_address)
+    end
+
 end
 

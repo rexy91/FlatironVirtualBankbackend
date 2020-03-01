@@ -15,19 +15,17 @@ def expenseSummary
         gas_total = 0
         
         @user_trans.each do |transaction|
+            byebug
             if transaction.trans_type = 'Withdrawal'
                 withdrawal_total += transaction.amount
-            elsif transaction.trans_type == 'Deposit'
-                    byebug 
-                deposit_total += transaction.amount
-            elsif transaction.trans_type = 'Transfer'
-                transfer_total += transaction.amount
-            elsif transaction.trans_type = 'Food'
-                food_total += transaction.amount
-            else
-                gas_total += transaction.amount
             end 
+            # elsif transaction.trans_type = 'Transfer'
+            #     transfer_total += transaction.amount
+            # elsif transaction.trans_type = 'Food'
+            #     food_total += transaction.amount
+            # else
+            #     gas_total += transaction.amount
+            # end 
         end
-            byebug 
     end
 end 

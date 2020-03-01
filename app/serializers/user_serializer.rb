@@ -1,5 +1,5 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :username, :email
+  attributes :id, :first_name, :last_name, :username, :email, :billing_address
   has_one :checking
   has_one :saving
   # has_many :transactions, through: :checking
