@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   patch '/checkings/withdrawal/:id', to: 'checkings#withdrawal'
   resources :checkings
   resources :savings
+
+  get '/account/:id/expense_summary', to: 'transactions#expenseSummary'
   resources :transactions
 
 end

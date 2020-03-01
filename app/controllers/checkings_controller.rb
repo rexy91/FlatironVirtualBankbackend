@@ -14,7 +14,6 @@ class CheckingsController < ApplicationController
     end
 
     def withdrawal
-        byebug
         @checking = Checking.find_by(id:params[:checkingId])
         @checking.withdrawal(params[:amount])
         @user = User.find_by(id:@checking.user.id)
