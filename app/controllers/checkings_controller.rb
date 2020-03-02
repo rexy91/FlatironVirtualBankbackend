@@ -17,7 +17,7 @@ class CheckingsController < ApplicationController
         @checking = Checking.find_by(id:params[:checkingId])
         @checking.withdrawal(params[:amount])
         @user = User.find_by(id:@checking.user.id)
-        @transaction = Transaction.create(amount:params[:amount], trans_type:'Withdrawl', accountable_id:@checking.id, accountable_type:'Checking', description:'Online Withdrawal')
+        @transaction = Transaction.create(amount:params[:amount], trans_type:'Withdrawal', accountable_id:@checking.id, accountable_type:'Checking', description:'Online Withdrawal')
         render json: @user
     end
 
