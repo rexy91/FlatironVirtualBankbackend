@@ -12,10 +12,10 @@ class UsersController < ApplicationController
     end
 
     def login 
+        
         @user= User.find_by(username: params[:username])
         if @user && @user.authenticate(params[:password])
           wristband = encode_token({user_id: @user.id})
-
           render json: {user: UserSerializer.new(@user), token: wristband}
           
         else
@@ -24,11 +24,19 @@ class UsersController < ApplicationController
     end
 
     def updateInfo
-       
+      
       @user = User.find_by(id:params[:id])
       @user.update(update_params)
       render json:@user
       
+    end
+
+    def handleComplain
+        @user = User.find_by(id: params[:userId])
+        @message = params[:message]
+        UserMailer.complain(@user, @message).deliver
+        # UserMailer.complain(@user)
+        render json: {res: 'sdfsdfdf'}
     end
 
     def create
