@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
     before_action :authorized, only: [:persist]
-
+    
     def index
       @users = User.all
       render json: @users
@@ -34,6 +34,7 @@ class UsersController < ApplicationController
     def create
        @user = User.create(new_user_params)
        if @user.valid?
+              UserMailer.welcome_email(@user).deliver
               if params[:acc_type] == 'checking'
               # Creates checking for user, assigned acc num.
               @checking = Checking.create(user_id:@user.id, acc_num:9.times.map{rand(7)}.join)
