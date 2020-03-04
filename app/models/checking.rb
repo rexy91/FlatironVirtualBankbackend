@@ -20,4 +20,11 @@ class Checking < ApplicationRecord
       self.balance -= amount.to_f
       save!
   end
+
+#   def instant_transfer(send_acc, receiving_acc, amount)
+#     @send_acc = send_acc
+#     @receiving_acc = receiving_acc
+#     @amount = amount
+#   end
+
 end
