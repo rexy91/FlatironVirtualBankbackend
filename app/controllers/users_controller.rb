@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
     before_action :authorized, only: [:persist]
-    
+
     def index
       @users = User.all
       render json: @users
@@ -11,8 +11,11 @@ class UsersController < ApplicationController
       render json: {user: UserSerializer.new(@user)}
     end
 
+    # def generateSignUpCode
+    #     byebug 
+    # end
+
     def login 
-        
         @user= User.find_by(username: params[:username])
         if @user && @user.authenticate(params[:password])
           wristband = encode_token({user_id: @user.id})
@@ -22,42 +25,42 @@ class UsersController < ApplicationController
           render json: {error: "Invalid username or password"}
         end
     end
-
     def updateInfo
-      
       @user = User.find_by(id:params[:id])
       @user.update(update_params)
       render json:@user
       
     end
 
-    def handleComplain
-        @user = User.find_by(id: params[:userId])
-        @message = params[:message]
-        UserMailer.complain(@user, @message).deliver
-        # UserMailer.complain(@user)
-        render json: {res: 'sdfsdfdf'}
-    end
+    # def handleComplain
+    #     @user = User.find_by(id: params[:userId])
+    #     @message = params[:message]
+    #     UserMailer.complain(@user, @message).deliver
+    #     # UserMailer.complain(@user)
+    #     render json: {res: 'sdfsdfdf'}
+    # end
 
     def create
        @user = User.create(new_user_params)
        if @user.valid?
-              UserMailer.welcome_email(@user).deliver
+              @signup_code = 5.times.map{rand(7)}.join
+              @user.update(signup_code:@signup_code)
+              # @user.update(signup_code: @signup_code)
+              UserMailer.welcome_email(@user,@signup_code).deliver
               if params[:acc_type] == 'checking'
               # Creates checking for user, assigned acc num.
               @checking = Checking.create(user_id:@user.id, acc_num:9.times.map{rand(7)}.join)
               # Calls instance method inside checking.rb 
               @checking.checking_signup_deposit(@user, @checking)
               wristband = encode_token({user_id: @user.id})
+              render json: {user: UserSerializer.new(@user), token: wristband, signup_type: 'Checking', code:@signup_code}
 
-              render json: {user: UserSerializer.new(@user), token: wristband, signup_type: 'Checking'}
-              
           elsif params[:acc_type] == 'saving'
               # Creates saving for user, assigned acc num.
               @saving = Saving.create(user_id:@user.id, acc_num:9.times.map{rand(7)}.join)
               @saving.saving_signup_deposit(@user, @saving)
               wristband = encode_token({user_id: @user.id})
-              render json: {user: UserSerializer.new(@user), token: wristband, signup_type: 'Saving'}
+              render json: {user: UserSerializer.new(@user), token: wristband, signup_type: 'Saving', code:@signup_code}
                end
         else 
               render json: {errors: @user.errors.full_messages}

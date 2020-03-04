@@ -9,7 +9,8 @@ class CheckingsController < ApplicationController
         @checking = Checking.find_by(id:params[:checkingId])
         @checking.deposit(params[:amount])
         @user = User.find_by(id:@checking.user.id)
-        @transaction = Transaction.create(amount:params[:amount], trans_type:'Deposit', accountable_id:@checking.id, accountable_type:'Checking', description:'Online Deposit')
+        trans_date = Time.now.strftime("%m/%d/%Y") 
+        @transaction = Transaction.create(amount:params[:amount], trans_type:'Deposit',date:trans_date, accountable_id:@checking.id, accountable_type:'Checking', description:'Online Deposit')
         render json: @user 
     end
 

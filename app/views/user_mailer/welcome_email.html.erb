@@ -6,8 +6,11 @@
   <body>
     <h1>Welcome to Virtual Banking, <%= @user.first_name%></h1>
     <p>
-      You have successfully signed up.
-      your username is: <%= @user.username %>.<br>
+      Your username is: <%= @user.username %>
+      <br>
+      Here is your sign up code: <b><%= @signup_code %>
+      <br>
+      Please enter the code to verify the account.
     </p>
     <p>
       To login to the site, just follow this link: <%= @url %>.

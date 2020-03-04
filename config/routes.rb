@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   post '/login', to: 'users#login'
   post '/users', to: 'users#create'
+  post '/users', to: 'users#generateSignUpCode'
   post '/users/:id/new_account', to: 'users#create_acc_for_existingUser'
   get '/persist', to: 'users#persist'
   patch '/account/:id/profile/update', to: 'users#updateInfo'
