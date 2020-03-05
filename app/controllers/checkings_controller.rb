@@ -1,4 +1,5 @@
 class CheckingsController < ApplicationController
+    
     def destroy 
         # instead of deleting, just change boolean to be false to make account inactive. 
         @checking = Checking.find_by(id: params[:id])
@@ -34,6 +35,8 @@ class CheckingsController < ApplicationController
 
         @receiving_user_checkingAcc.deposit(@transfer_amount)
         @sending_user_checking.withdrawal(@transfer_amount)
+        @transaction = Transaction.create(amount:params[:amount], trans_type:'Transfer', accountable_id:@sending_user_checking.id, accountable_type:'Checking', description:'Online Transfer Out')
+        @transaction = Transaction.create(amount:params[:amount], trans_type:'Transfer', accountable_id:@receiving_user_checkingAcc.id, accountable_type:'Checking', description:'Online Transfer In')
         render json: @user
     end
 
