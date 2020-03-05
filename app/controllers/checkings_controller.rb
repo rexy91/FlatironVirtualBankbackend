@@ -23,20 +23,21 @@ class CheckingsController < ApplicationController
         render json: @user
     end
 
+
     def instant_transfer
         # Find both user account, and through associations find their checking accs, then call class methods to update funds.
         @user = User.find_by(id: [params[:id_from]]) 
         @sending_user = User.find_by(id:params[:id_from])
         @sending_user_checking = Checking.find_by(id:@sending_user.id)
-
+        
         @receiving_user = User.find_by(id:params[:id_to])
         @receiving_user_checkingAcc = Checking.find_by(id: @receiving_user.id)
         @transfer_amount = params[:amount]
-
         @receiving_user_checkingAcc.deposit(@transfer_amount)
         @sending_user_checking.withdrawal(@transfer_amount)
-        @transaction = Transaction.create(amount:params[:amount], trans_type:'Transfer', accountable_id:@sending_user_checking.id, accountable_type:'Checking', description:'Online Transfer Out')
-        @transaction = Transaction.create(amount:params[:amount], trans_type:'Transfer', accountable_id:@receiving_user_checkingAcc.id, accountable_type:'Checking', description:'Online Transfer In')
+        trans_date = Time.now.strftime("%m/%d/%Y") 
+        @transaction = Transaction.create(amount:params[:amount], date:trans_date, trans_type:'Transfer', accountable_id:@sending_user_checking.id, accountable_type:'Checking', description:'Online Transfer Out')
+        @transaction = Transaction.create(amount:params[:amount], date:trans_date, trans_type:'Transfer', accountable_id:@receiving_user_checkingAcc.id, accountable_type:'Checking', description:'Online Transfer In')
         render json: @user
     end
 
