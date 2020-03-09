@@ -12,13 +12,13 @@ class Checking < ApplicationRecord
   end
 
   def deposit(amount)
-    #   byebug 
+      # byebug 
       self.balance += amount.to_f
       save!
   end 
 
   def withdrawal(amount)
-    #   byebug 
+      # byebug 
       self.balance -= amount.to_f
       save!
   end

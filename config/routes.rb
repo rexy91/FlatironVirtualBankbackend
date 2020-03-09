@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   patch '/checkings/deposit/:id', to: 'checkings#deposit'
   patch '/checkings/withdrawal/:id', to: 'checkings#withdrawal'
   resources :checkings
+  
+  # patch '/savings/:id/internal_tarnsfer', to: 'savings#internal_transfer'
   resources :savings
   
   

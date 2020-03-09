@@ -2,8 +2,12 @@ class CheckingsController < ApplicationController
     
     def destroy 
         # instead of deleting, just change boolean to be false to make account inactive. 
+        
         @checking = Checking.find_by(id: params[:id])
-        @checking.update(status:!@checking.status)
+        @checking.destroy
+        # @saving = Saving.find_by(id:params[:id])
+        # @saving.destroy 
+        render json: @checking
     end
 
     def deposit
@@ -19,19 +23,24 @@ class CheckingsController < ApplicationController
         @checking = Checking.find_by(id:params[:checkingId])
         @checking.withdrawal(params[:amount])
         @user = User.find_by(id:@checking.user.id)
-        @transaction = Transaction.create(amount:params[:amount], trans_type:'Withdrawal', accountable_id:@checking.id, accountable_type:'Checking', description:'Online Withdrawal')
+        trans_date = Time.now.strftime("%m/%d/%Y")
+        @transaction = Transaction.create(amount:params[:amount], date:trans_date, trans_type:'Withdrawal', accountable_id:@checking.id, accountable_type:'Checking', description:'Online Withdrawal')
         render json: @user
     end
 
 
     def instant_transfer
+        # byebug
         # Find both user account, and through associations find their checking accs, then call class methods to update funds.
+        #For consistency, fidn the user and render back as json object. 
+
         @user = User.find_by(id: [params[:id_from]]) 
         @sending_user = User.find_by(id:params[:id_from])
-        @sending_user_checking = Checking.find_by(id:@sending_user.id)
-        
+        @sending_user_checking = Checking.find_by(id:@sending_user.checking.id)
+
         @receiving_user = User.find_by(id:params[:id_to])
         @receiving_user_checkingAcc = Checking.find_by(id: @receiving_user.id)
+
         @transfer_amount = params[:amount]
         @receiving_user_checkingAcc.deposit(@transfer_amount)
         @sending_user_checking.withdrawal(@transfer_amount)
@@ -39,6 +48,8 @@ class CheckingsController < ApplicationController
         @transaction = Transaction.create(amount:params[:amount], date:trans_date, trans_type:'Transfer', accountable_id:@sending_user_checking.id, accountable_type:'Checking', description:'Online Transfer Out')
         @transaction = Transaction.create(amount:params[:amount], date:trans_date, trans_type:'Transfer', accountable_id:@receiving_user_checkingAcc.id, accountable_type:'Checking', description:'Online Transfer In')
         render json: @user
+        
+        
     end
 
 end

@@ -9,4 +9,10 @@ class Saving < ApplicationRecord
     save!
 end
 
+  def withdrawal(amount)
+      # byebug
+      self.balance -= amount.to_f
+      save!
+  end
+
 end
