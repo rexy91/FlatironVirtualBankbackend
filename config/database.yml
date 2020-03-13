@@ -80,6 +80,5 @@ test:
 #
 production:
   <<: *default
-  database: finalBankappBackend_production
-  username: finalBankappBackend
-  password: <%= ENV['FINALBANKAPPBACKEND_DATABASE_PASSWORD'] %>
+  database: <%= ENV['DATABASE_URL'] %>
+
