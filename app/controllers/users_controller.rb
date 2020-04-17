@@ -28,9 +28,11 @@ class UsersController < ApplicationController
 
     def updateInfo
       @user = User.find_by(id:params[:id])
-      @user.update(update_params)
+      # @user.update(update_params)
+      @user.update(first_name:params[:first_name])
       byebug
       render json:@user
+
     end
 
     def create
