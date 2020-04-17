@@ -25,22 +25,16 @@ class UsersController < ApplicationController
           render json: {error: "Invalid username or password"}
         end
     end
+
     def updateInfo
       @user = User.find_by(id:params[:id])
       @user.update(update_params)
+      byebug
       render json:@user
-      
     end
 
-    # def handleComplain
-    #     @user = User.find_by(id: params[:userId])
-    #     @message = params[:message]
-    #     UserMailer.complain(@user, @message).deliver
-    #     # UserMailer.complain(@user)
-    #     render json: {res: 'sdfsdfdf'}
-    # end
-
     def create
+        # byebug 
        @user = User.create(new_user_params)
        if @user.valid?
               @signup_code = 5.times.map{rand(7)}.join
