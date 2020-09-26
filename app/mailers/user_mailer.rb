@@ -1,5 +1,5 @@
 class UserMailer < ApplicationMailer
-    def welcome_email(user,signup_code)
+    def welcome_email(user)
 
         # @signup_code = signup_code
         
