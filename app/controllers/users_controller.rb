@@ -32,14 +32,12 @@ class UsersController < ApplicationController
     def create
        @user = User.create(new_user_params)
        if @user.valid?
-
               #removing code verification for now 
               # @signup_code = 5.times.map{rand(7)}.join
               # @user.update(signup_code:@signup_code)
               # UserMailer.welcome_email(@user,@signup_code).deliver
               # send a sign up thank you email instead 
               UserMailer.welcome_email(@user).deliver
-              byebug
               
               if params[:acc_type] == 'checking'
               # Creates checking for user, assigned acc num.
