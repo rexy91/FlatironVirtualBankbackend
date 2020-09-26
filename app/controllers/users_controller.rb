@@ -10,17 +10,12 @@ class UsersController < ApplicationController
       @user = User.find_by(id: params[:id])
       render json: {user: UserSerializer.new(@user)}
     end
-
-    # def generateSignUpCode
-    #     byebug 
-    # end
-
+    
     def login 
         @user= User.find_by(username: params[:username])
         if @user && @user.authenticate(params[:password])
           wristband = encode_token({user_id: @user.id})
           render json: {user: UserSerializer.new(@user), token: wristband}
-          
         else
           render json: {error: "Invalid username or password"}
         end
@@ -30,19 +25,19 @@ class UsersController < ApplicationController
       @user = User.find_by(id:params[:id])
       # @user.update(update_params)
       @user.update(first_name:params[:first_name])
-      byebug
       render json:@user
 
     end
 
     def create
-        # byebug 
        @user = User.create(new_user_params)
        if @user.valid?
-              @signup_code = 5.times.map{rand(7)}.join
-              @user.update(signup_code:@signup_code)
-              # @user.update(signup_code: @signup_code)
-              UserMailer.welcome_email(@user,@signup_code).deliver
+              #removing code verification for now 
+              # @signup_code = 5.times.map{rand(7)}.join
+              # @user.update(signup_code:@signup_code)
+              # UserMailer.welcome_email(@user,@signup_code).deliver
+              # send a sign up thank you email instead 
+              UserMailer.welcome_email(@user).deliver
               if params[:acc_type] == 'checking'
               # Creates checking for user, assigned acc num.
               @checking = Checking.create(user_id:@user.id, acc_num:9.times.map{rand(7)}.join)
@@ -93,4 +88,3 @@ class UsersController < ApplicationController
     end
 
 end
-
