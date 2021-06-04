@@ -80,6 +80,8 @@ class UsersController < ApplicationController
 
     private
     def new_user_params
+        # key passed from frontend body need to matches backend's attribute keys. 
+        # To use strong params 
         params.permit(:username, :password, :email, :first_name, :last_name)
     end
 
